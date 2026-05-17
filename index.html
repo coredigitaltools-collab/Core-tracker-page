@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Core Tracker: Business tracking for product and service businesses. Track sales, stock, appointments and profit instantly.">
+<title>Core Tracker | Track. Manage. Grow.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080a12;--surface:#0f1120;--surface2:#161928;
+  --pink:#e040a0;--blue:#3a9fd4;--green:#3ad4a0;--amber:#fbbf24;
+  --text:#f0f4fc;--text2:#b0b8d0;--text3:#6870a0;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.12);
+  --grad:linear-gradient(135deg,#e040a0,#3a9fd4);
+  --grad2:linear-gradient(135deg,#3a9fd4,#3ad4a0);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;font-size:16px;line-height:1.6}
+h1,h2,h3,h4,.brand{font-family:'Syne',sans-serif}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+.orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.1;pointer-events:none;z-index:0}
+.orb-1{width:600px;height:600px;background:#e040a0;top:-200px;left:-200px}
+.orb-2{width:500px;height:500px;background:#3a9fd4;bottom:-150px;right:-150px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,10,18,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo img{width:34px;height:34px;border-radius:9px;object-fit:contain}
+.nav-brand{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--grad);color:#fff;border:none;border-radius:20px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;transition:opacity .2s}
+.nav-cta:hover{opacity:.9}
+
+/* BUTTONS */
+.btn-primary{background:var(--grad);color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 40px rgba(224,64,160,0.25);transition:all .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(224,64,160,0.35)}
+.btn-secondary{background:var(--grad2);color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 40px rgba(58,159,212,0.2);transition:all .3s}
+.btn-secondary:hover{transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2);border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-wa{background:#25D366;color:#fff;border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:block;width:100%;text-align:center;transition:all .2s}
+.btn-wa:hover{opacity:.9;transform:translateY(-1px)}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:100px 24px}
+.inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);margin-bottom:16px}
+.section-tag::before{content:'';width:20px;height:2px;background:var(--pink);border-radius:2px}
+.section-title{font-size:clamp(24px,3vw,36px);font-weight:700;line-height:1.15;margin-bottom:16px;letter-spacing:-.5px}
+.section-sub{font-size:17px;color:var(--text2);max-width:540px;line-height:1.7;font-weight:300}
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad2-text{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(58,159,212,0.1);border:1px solid rgba(58,159,212,0.25);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--blue);margin-bottom:28px;letter-spacing:.5px;text-transform:uppercase}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(32px,5vw,60px);font-weight:700;line-height:1.1;margin-bottom:24px;letter-spacing:-1px}
+.hero-sub{font-size:clamp(16px,2vw,20px);color:var(--text2);max-width:580px;margin:0 auto 40px;line-height:1.7;font-weight:300}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.hero-sub-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:60px}
+.demo-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:20px;padding:7px 16px;font-size:13px;color:var(--text2);text-decoration:none;transition:all .2s}
+.demo-pill:hover{border-color:var(--blue);color:var(--blue)}
+.demo-pill-dot{width:7px;height:7px;border-radius:50%}
+
+/* STATS STRIP */
+.stats-strip{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:40px 24px;position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(15,17,32,0.5);backdrop-filter:blur(10px)}
+.strip-stat{text-align:center}
+.strip-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.strip-label{font-size:13px;color:var(--text3);margin-top:4px}
+
+/* TWO SYSTEMS */
+.systems{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+@media(max-width:960px){.systems{grid-template-columns:1fr 1fr}}
+
+.system-card{background:var(--surface);border:1px solid var(--border2);border-radius:20px;overflow:hidden;transition:all .3s}
+.system-card:hover{transform:translateY(-4px)}
+.system-card-header{padding:28px;border-bottom:1px solid var(--border)}
+.system-card-tag{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.system-card h3{font-size:22px;font-weight:800;margin-bottom:8px}
+.system-card p{font-size:14px;color:var(--text2);line-height:1.6}
+.system-card-body{padding:24px}
+.system-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.system-features li{font-size:14px;color:var(--text2);display:flex;align-items:flex-start;gap:10px}
+.system-features li .check{font-weight:700;flex-shrink:0}
+.system-demo-btn{display:block;width:100%;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .2s}
+
+/* FEATURES GRID */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:56px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;transition:all .3s}
+.feature-card:hover{border-color:rgba(224,64,160,0.3);transform:translateY(-3px)}
+.feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.feature-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.feature-card p{font-size:13px;color:var(--text2);line-height:1.7}
+
+/* AUDIENCE */
+.audience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:48px}
+.audience-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:all .2s}
+.audience-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.audience-name{font-size:13px;font-weight:600;color:var(--text2)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:48px}
+.pricing-section-title{font-size:15px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;margin-top:40px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px;position:relative;overflow:hidden;transition:all .3s}
+.pricing-card:hover{transform:translateY(-3px)}
+.pricing-card.featured{border-color:rgba(224,64,160,0.4);background:linear-gradient(145deg,#0f1120,#161020)}
+.pricing-card.featured::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}
+.pricing-badge{position:absolute;top:18px;right:18px;background:var(--grad);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.pricing-name{font-size:12px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.pricing-price{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
+.pricing-price span{font-size:14px;font-weight:400;color:var(--text3)}
+.pricing-desc{font-size:13px;color:var(--text3);margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.pricing-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.pricing-features li{font-size:13px;color:var(--text2);display:flex;align-items:flex-start;gap:8px}
+.pricing-features li .check{color:var(--green);font-weight:700;flex-shrink:0}
+.pricing-features li .cross{color:var(--text3);flex-shrink:0}
+
+/* WHY SECTION */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:48px}
+.why-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;gap:14px;align-items:flex-start}
+.why-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* HOW IT WORKS */
+.steps{display:flex;flex-direction:column;gap:0;margin-top:56px;max-width:580px}
+.step{display:flex;gap:22px;padding-bottom:36px;position:relative}
+.step::before{content:'';position:absolute;left:17px;top:38px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--border2),transparent)}
+.step:last-child{padding-bottom:0}
+.step:last-child::before{display:none}
+.step-num{width:36px;height:36px;border-radius:10px;flex-shrink:0;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.step h4{font-size:16px;font-weight:700;margin-bottom:5px}
+.step p{font-size:14px;color:var(--text2);line-height:1.7}
+
+/* CTA */
+.cta-section{text-align:center;padding:100px 24px;position:relative;z-index:1;background:linear-gradient(135deg,rgba(224,64,160,0.05),rgba(58,159,212,0.05));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cta-section h2{font-size:clamp(26px,4vw,40px);font-weight:700;margin-bottom:16px;letter-spacing:-.5px}
+
+/* FOOTER */
+footer{padding:48px 40px 32px;border-top:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;z-index:1}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+.footer-copy{font-size:12px;color:var(--text3);text-align:center}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  section{padding:70px 20px}
+  .systems{grid-template-columns:1fr}
+  .stats-strip{gap:28px}
+  footer{padding:40px 20px 28px}
+}
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="data:image/png;base64,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" alt="Core Digital Tools">
+    <span class="nav-brand">Core Tracker</span>
+  </div>
+  <div class="nav-links">
+    <a href="#systems">Products</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#how">How it works</a>
+  </div>
+  <a href="https://wa.me/256765665564" target="_blank" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  
+  <h1>Track. Manage.<br><span class="grad-text">Grow.</span></h1>
+  <p class="hero-sub">Whether you sell products, offer services, or manage a household, Core Digital Tools gives you a simple app to know exactly what is coming in, what is going out, and what you are making.</p>
+  <div class="hero-actions">
+    <a href="https://coredigitaltools-collab.github.io/coredigital-Demo/" target="_blank" class="btn-primary">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Try Product Demo
+    </a>
+    <a href="https://coredigitaltools-collab.github.io/service-Demo/" target="_blank" class="btn-secondary">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Try Service Demo
+    </a>
+    <a href="https://coredigitaltools-collab.github.io/Core-Wallet-Demo/" target="_blank" class="btn-ghost" style="border-color:rgba(58,212,160,0.4);color:var(--green)">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Try Wallet Demo
+    </a>
+  </div>
+  <div class="hero-sub-actions">
+    <a href="#systems" class="demo-pill">
+      <div class="demo-pill-dot" style="background:#e040a0"></div>
+      For product businesses
+    </a>
+    <a href="#systems" class="demo-pill">
+      <div class="demo-pill-dot" style="background:#3a9fd4"></div>
+      For service businesses
+    </a>
+    <a href="#systems" class="demo-pill">
+      <div class="demo-pill-dot" style="background:#3ad4a0"></div>
+      For households
+    </a>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip reveal">
+  <div class="strip-stat"><div class="strip-num">5</div><div class="strip-label">App Plans</div></div>
+  <div class="strip-stat"><div class="strip-num">25+</div><div class="strip-label">Currencies</div></div>
+  <div class="strip-stat"><div class="strip-num">100%</div><div class="strip-label">Works Offline</div></div>
+  <div class="strip-stat"><div class="strip-num">3</div><div class="strip-label">Apps</div></div>
+</div>
+
+<!-- TWO SYSTEMS (now three) -->
+<section id="systems">
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag" style="justify-content:center">Three Apps</div>
+      <h2 class="section-title">Three apps, one company</h2>
+      <p class="section-sub" style="margin:0 auto">Pick the one that fits your life or business. All three work offline and install on any phone.</p>
+    </div>
+    <div class="systems reveal">
+
+      <!-- PRODUCT TRACKER -->
+      <div class="system-card">
+        <div class="system-card-header" style="border-top:3px solid #e040a0">
+          <div class="system-card-tag" style="color:#e040a0">Product Business</div>
+          <h3>Product Tracker</h3>
+          <p>For shops, boutiques, pharmacies and anyone who buys and sells physical products.</p>
+          <div style="margin-top:16px;padding:10px 14px;background:rgba(224,64,160,0.06);border-radius:10px;font-size:12px;color:var(--text3)">
+            Demo business: <strong style="color:var(--text)">Styles@UG</strong> (Fashion store with real sample data)
+          </div>
+        </div>
+        <div class="system-card-body">
+          <ul class="system-features">
+            <li><span class="check" style="color:#e040a0">✓</span> Inventory & stock tracking</li>
+            <li><span class="check" style="color:#e040a0">✓</span> Daily sales recording</li>
+            <li><span class="check" style="color:#e040a0">✓</span> Expenses & profit reports</li>
+            <li><span class="check" style="color:#e040a0">✓</span> Credit customer tracking</li>
+            <li><span class="check" style="color:#e040a0">✓</span> Daily, Monthly & Annual reports</li>
+            <li><span class="check" style="color:#e040a0">✓</span> Staff accounts</li>
+            <li><span class="check" style="color:#e040a0">✓</span> Customer receipts</li>
+          </ul>
+          <a href="https://coredigitaltools-collab.github.io/coredigital-Demo/" target="_blank" class="system-demo-btn" style="background:linear-gradient(135deg,#e040a0,#c030a0);color:#fff;margin-bottom:10px">
+            Try Product Demo →
+          </a>
+          <a href="https://wa.me/256765665564" target="_blank" class="system-demo-btn" style="background:var(--surface2);color:var(--text2);border:1px solid var(--border2)">
+            Get this app →
+          </a>
+        </div>
+      </div>
+
+      <!-- SERVICE TRACKER -->
+      <div class="system-card">
+        <div class="system-card-header" style="border-top:3px solid #3a9fd4">
+          <div class="system-card-tag" style="color:#3a9fd4">Service Business</div>
+          <h3>Service Tracker</h3>
+          <p>For salons, clinics, photographers, consultants, coaches and any service provider.</p>
+          <div style="margin-top:16px;padding:10px 14px;background:rgba(58,159,212,0.06);border-radius:10px;font-size:12px;color:var(--text3)">
+            Demo business: <strong style="color:var(--text)">Glam Studio</strong> (Beauty salon with real sample data)
+          </div>
+        </div>
+        <div class="system-card-body">
+          <ul class="system-features">
+            <li><span class="check" style="color:#3a9fd4">✓</span> Walk-in sale recording</li>
+            <li><span class="check" style="color:#3a9fd4">✓</span> Appointment booking & tracking</li>
+            <li><span class="check" style="color:#3a9fd4">✓</span> Client management</li>
+            <li><span class="check" style="color:#3a9fd4">✓</span> Installment & project tracking</li>
+            <li><span class="check" style="color:#3a9fd4">✓</span> Payment history per client</li>
+            <li><span class="check" style="color:#3a9fd4">✓</span> Service pricing list</li>
+            <li><span class="check" style="color:#3a9fd4">✓</span> WhatsApp receipts & reminders</li>
+          </ul>
+          <a href="https://coredigitaltools-collab.github.io/service-Demo/" target="_blank" class="system-demo-btn" style="background:linear-gradient(135deg,#3a9fd4,#2a8fc4);color:#fff;margin-bottom:10px">
+            Try Service Demo →
+          </a>
+          <a href="https://wa.me/256765665564" target="_blank" class="system-demo-btn" style="background:var(--surface2);color:var(--text2);border:1px solid var(--border2)">
+            Get this app →
+          </a>
+        </div>
+      </div>
+
+      <!-- CORE WALLET -->
+      <div class="system-card">
+        <div class="system-card-header" style="border-top:3px solid #3ad4a0">
+          <div class="system-card-tag" style="color:#3ad4a0">Household</div>
+          <h3>Core Wallet</h3>
+          <p>For households and families who want to track income, expenses, savings goals and shared finances in one place.</p>
+          <div style="margin-top:16px;padding:10px 14px;background:rgba(58,212,160,0.06);border-radius:10px;font-size:12px;color:var(--text3)">
+            Demo household: <strong style="color:var(--text)">Sarah &amp; David</strong> (Family budget with sample data)
+          </div>
+        </div>
+        <div class="system-card-body">
+          <ul class="system-features">
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Personalised app name with your initials</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Income and expense tracking</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Savings goals with deadlines</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Budgets per category</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Debt and loan tracking</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Children's expenses per child</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Recurring income and expenses</li>
+            <li><span class="check" style="color:#3ad4a0">&#10003;</span> Reports and spending trends</li>
+          </ul>
+          <a href="https://coredigitaltools-collab.github.io/Core-Wallet-Demo/" target="_blank" class="system-demo-btn" style="background:linear-gradient(135deg,#3ad4a0,#2ab48a);color:#fff;margin-bottom:10px">
+            Try Core Wallet Demo &#8594;
+          </a>
+          <a href="https://wa.me/256765665564" target="_blank" class="system-demo-btn" style="background:var(--surface2);color:var(--text2);border:1px solid var(--border2)">
+            Get this app &#8594;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SHARED FEATURES -->
+<section id="features" style="background:rgba(15,17,32,0.5)">
+  <div class="inner">
+    <div class="reveal">
+      <div class="section-tag">Features</div>
+      <h2 class="section-title">What you get</h2>
+      <p class="section-sub">Everything is ready when you install it. No setup, no training, no accountant needed.</p>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(58,159,212,0.12)">
+          <svg width="20" height="20" fill="none" stroke="#3a9fd4" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Works without internet</h3>
+        <p>Record sales, track stock and log expenses even when there's no connection. Data syncs automatically when you're back online.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(58,212,160,0.12)">
+          <svg width="20" height="20" fill="none" stroke="#3ad4a0" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Staff Accounts</h3>
+        <p>Add your team with their own login. Every sale and booking is recorded under the right person. Owner sees everything.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(224,64,160,0.12)">
+          <svg width="20" height="20" fill="none" stroke="#e040a0" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3>Reports that make sense</h3>
+        <p>Daily, weekly, monthly and annual summaries. Your profit is calculated automatically. No spreadsheets, no guessing.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(251,191,36,0.12)">
+          <svg width="20" height="20" fill="none" stroke="#fbbf24" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>WhatsApp Receipts</h3>
+        <p>Send professional receipts to customers directly on WhatsApp. Includes your business name, logo and transaction details.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(58,159,212,0.12)">
+          <svg width="20" height="20" fill="none" stroke="#3a9fd4" stroke-width="2" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </div>
+        <h3>Cloud Sync (Pro Max)</h3>
+        <p>Pro Plus and Pro Max clients get real-time cloud sync. See staff sales live from anywhere. Switch phones without losing any data.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(58,212,160,0.12)">
+          <svg width="20" height="20" fill="none" stroke="#3ad4a0" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>No app store needed</h3>
+        <p>Works on Android and iPhone. Open the link, install it to your home screen and it runs like a normal app. No Play Store or App Store needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS IT FOR -->
+<section>
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag" style="justify-content:center">Who is it for</div>
+      <h2 class="section-title">Who uses Core Tracker</h2>
+    </div>
+    <div style="margin-top:40px">
+      <div style="font-size:13px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Product Businesses</div>
+      <div class="audience-grid reveal">
+        <div class="audience-card"><div class="audience-name">Boutiques</div></div>
+        <div class="audience-card"><div class="audience-name">Retail Shops</div></div>
+        <div class="audience-card"><div class="audience-name">Pharmacies</div></div>
+        <div class="audience-card"><div class="audience-name">Hardware Shops</div></div>
+        <div class="audience-card"><div class="audience-name">Bakeries</div></div>
+        <div class="audience-card"><div class="audience-name">Online Stores</div></div>
+        <div class="audience-card"><div class="audience-name">Shoe Stores</div></div>
+        <div class="audience-card"><div class="audience-name">Supermarkets</div></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin:32px 0 16px">Service Businesses</div>
+      <div class="audience-grid reveal">
+        <div class="audience-card"><div class="audience-name">Salons &amp; Spas</div></div>
+        <div class="audience-card"><div class="audience-name">Photographers</div></div>
+        <div class="audience-card"><div class="audience-name">Clinics</div></div>
+        <div class="audience-card"><div class="audience-name">Consultants</div></div>
+        <div class="audience-card"><div class="audience-name">Fitness Trainers</div></div>
+        <div class="audience-card"><div class="audience-name">Influencers</div></div>
+        <div class="audience-card"><div class="audience-name">Event Planners</div></div>
+        <div class="audience-card"><div class="audience-name">Tutors &amp; Coaches</div></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin:32px 0 16px">Households (Core Wallet)</div>
+      <div class="audience-grid reveal">
+        <div class="audience-card"><div class="audience-name">Families</div></div>
+        <div class="audience-card"><div class="audience-name">Couples</div></div>
+        <div class="audience-card"><div class="audience-name">Single Parents</div></div>
+        <div class="audience-card"><div class="audience-name">Students</div></div>
+        <div class="audience-card"><div class="audience-name">Roommates</div></div>
+        <div class="audience-card"><div class="audience-name">Young Professionals</div></div>
+        <div class="audience-card"><div class="audience-name">Retirees</div></div>
+        <div class="audience-card"><div class="audience-name">Anyone budgeting</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:rgba(15,17,32,0.5)">
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag" style="justify-content:center">Pricing</div>
+      <h2 class="section-title">Pricing</h2>
+      <p class="section-sub" style="margin:0 auto">Try the demo first. Pay only when you're ready.</p>
+    </div>
+
+    <!-- PRODUCT PLANS -->
+    <div class="pricing-section-title reveal">Product Tracker Plans</div>
+    <div class="pricing-grid reveal" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <!-- BASIC -->
+      <div class="pricing-card">
+        <div class="pricing-name">Basic</div>
+        <div class="pricing-price">UGX 55K<span> once</span></div>
+        <div class="pricing-desc">Simple tracking for solo owners on one device.</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Inventory & sales tracking</li>
+          <li><span class="check">✓</span> Expenses & profit reports</li>
+          <li><span class="check">✓</span> Daily, monthly & annual summaries</li>
+          <li><span class="check">✓</span> Works offline</li>
+          <li><span class="check">✓</span> Lifetime access</li>
+          <li><span class="cross">✗</span> Staff accounts</li>
+          <li><span class="cross">✗</span> Cloud sync</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20buy%20Core%20Tracker%20Basic%20(UGX%2055%2C000)" target="_blank" class="btn-wa" style="background:var(--surface2);color:var(--text);border:1px solid var(--border2)">Buy on WhatsApp</a>
+      </div>
+      <!-- PRO -->
+      <div class="pricing-card">
+        <div class="pricing-name">PRO</div>
+        <div class="pricing-price">UGX 150K<span> once</span></div>
+        <div class="pricing-desc">For growing businesses with a team. One-time payment.</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Basic</li>
+          <li><span class="check">✓</span> Staff accounts with PINs</li>
+          <li><span class="check">✓</span> 1 branch</li>
+          <li><span class="check">✓</span> Credit tracking</li>
+          <li><span class="check">✓</span> Customer receipts</li>
+          <li><span class="check">✓</span> Lifetime access</li>
+          <li><span class="cross">✗</span> Cloud sync</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20buy%20Core%20Tracker%20PRO%20(UGX%20150%2C000)" target="_blank" class="btn-wa" style="background:var(--surface2);color:var(--text);border:1px solid var(--border2)">Buy on WhatsApp</a>
+      </div>
+      <!-- PRO PLUS -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge">MOST POPULAR</div>
+        <div class="pricing-name">PRO PLUS</div>
+        <div class="pricing-price">$20<span>/month</span></div>
+        <div class="pricing-desc">Cloud-powered with real-time sync for serious businesses.</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in PRO</li>
+          <li><span class="check">✓</span> Real-time cloud sync</li>
+          <li><span class="check">✓</span> Multi-branch support</li>
+          <li><span class="check">✓</span> Owner sees staff sales live</li>
+          <li><span class="check">✓</span> Always latest features</li>
+          <li><span class="check">✓</span> Priority WhatsApp support</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20subscribe%20to%20Core%20Tracker%20PRO%20PLUS%20(%2420%2Fmonth)" target="_blank" class="btn-wa">Subscribe on WhatsApp</a>
+      </div>
+      <!-- PRO MAX -->
+      <div class="pricing-card" style="border-color:rgba(58,212,160,0.3)">
+        <div class="pricing-badge" style="background:var(--grad2)">FULL POWER</div>
+        <div class="pricing-name" style="color:var(--green)">PRO MAX</div>
+        <div class="pricing-price">$35<span>/month</span></div>
+        <div class="pricing-desc">Complete business suite for high-volume operations.</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in PRO PLUS</li>
+          <li><span class="check">✓</span> Real-time cloud sync</li>
+          <li><span class="check">✓</span> Supplier management</li>
+          <li><span class="check">✓</span> Purchase orders</li>
+          <li><span class="check">✓</span> Product variants</li>
+          <li><span class="check">✓</span> Bank reconciliation</li>
+          <li><span class="check">✓</span> Profit per product</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20subscribe%20to%20Core%20Tracker%20PRO%20MAX%20(%2435%2Fmonth)" target="_blank" class="btn-wa" style="background:var(--grad2)">Subscribe on WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- SERVICE PLANS -->
+    <div class="pricing-section-title reveal" style="margin-top:60px;border-top:1px solid var(--border);padding-top:40px">Service Tracker Plans</div>
+    <div class="pricing-grid reveal" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:640px">
+      <div class="pricing-card">
+        <div class="pricing-name">Walk-in</div>
+        <div class="pricing-price">UGX 55K<span> once</span></div>
+        <div class="pricing-desc">For businesses that mainly serve walk-in customers.</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Walk-in sale recording</li>
+          <li><span class="check">✓</span> Discounts & payment status</li>
+          <li><span class="check">✓</span> Sales history & reports</li>
+          <li><span class="check">✓</span> Service pricing list</li>
+          <li><span class="check">✓</span> Expenses & profit</li>
+          <li><span class="check">✓</span> Lifetime access</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20buy%20Core%20Tracker%20Walk-in%20(UGX%2055%2C000)" target="_blank" class="btn-wa" style="background:var(--surface2);color:var(--text);border:1px solid var(--border2)">Buy on WhatsApp</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">FULL FEATURES</div>
+        <div class="pricing-name">Appointment</div>
+        <div class="pricing-price">UGX 100K<span> once</span></div>
+        <div class="pricing-desc">Full service management with bookings and client tracking.</div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Walk-in</li>
+          <li><span class="check">✓</span> Appointment booking</li>
+          <li><span class="check">✓</span> Client management</li>
+          <li><span class="check">✓</span> Installment tracking</li>
+          <li><span class="check">✓</span> WhatsApp reminders</li>
+          <li><span class="check">✓</span> PDF receipts</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20buy%20Core%20Tracker%20Appointment%20(UGX%20100%2C000)" target="_blank" class="btn-wa">Buy on WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- CORE WALLET PLAN -->
+    <div class="pricing-section-title reveal" style="margin-top:60px;border-top:1px solid var(--border);padding-top:40px">Core Wallet Plan</div>
+    <div class="pricing-grid reveal" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:400px">
+      <div class="pricing-card" style="border-color:rgba(58,212,160,0.3)">
+        <div class="pricing-badge" style="background:var(--grad2)">PERSONAL</div>
+        <div class="pricing-name" style="color:var(--green)">Core Wallet</div>
+        <div class="pricing-price">UGX 100K<span> once</span></div>
+        <div class="pricing-desc">Complete household budget tracker. One payment, yours forever.</div>
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> Personalised app name with your initials</li>
+          <li><span class="check">&#10003;</span> Income and expense tracking</li>
+          <li><span class="check">&#10003;</span> Budgets per category</li>
+          <li><span class="check">&#10003;</span> Savings goals with deadlines</li>
+          <li><span class="check">&#10003;</span> Children's expenses per child</li>
+          <li><span class="check">&#10003;</span> Debt and loan tracking</li>
+          <li><span class="check">&#10003;</span> Recurring items</li>
+          <li><span class="check">&#10003;</span> Reports and spending trends</li>
+          <li><span class="check">&#10003;</span> Multi-member household</li>
+          <li><span class="check">&#10003;</span> Lifetime access</li>
+        </ul>
+        <a href="https://wa.me/256765665564?text=Hi%2C%20I%20want%20to%20buy%20Core%20Wallet%20(UGX%20100%2C000)" target="_blank" class="btn-wa" style="background:linear-gradient(135deg,#3ad4a0,#2ab48a)">Buy on WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="reveal" style="text-align:center;margin-top:40px">
+      <p style="color:var(--text3);font-size:14px;margin-bottom:16px">Not sure which plan? Try the live demo first. No sign up needed.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="https://coredigitaltools-collab.github.io/coredigital-Demo/" target="_blank" class="btn-ghost" style="font-size:14px;padding:11px 22px">Try Product Demo</a>
+        <a href="https://coredigitaltools-collab.github.io/service-Demo/" target="_blank" class="btn-ghost" style="font-size:14px;padding:11px 22px">Try Service Demo</a>
+        <a href="https://coredigitaltools-collab.github.io/Core-Wallet-Demo/" target="_blank" class="btn-ghost" style="font-size:14px;padding:11px 22px;border-color:rgba(58,212,160,0.4);color:var(--green)">Try Wallet Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="inner">
+    <div class="reveal">
+      <div class="section-tag">How it works</div>
+      <h2 class="section-title">How to get started</h2>
+      <p class="section-sub">You can go from the demo to your own app in under 10 minutes.</p>
+    </div>
+    <div class="steps reveal" style="margin-top:56px">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Try the demo first</h4>
+          <p>Open it on your phone right now. No sign up. You'll see real sample data so you can click around and see how everything works.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Pick a plan and pay</h4>
+          <p>Send us a WhatsApp, tell us which plan you want and pay via MTN Mobile Money to 0765 665 564. That's it.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>We send you your link</h4>
+          <p>Within a few minutes you'll get your app link on WhatsApp. Open it, install it to your home screen and you're good to go.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Start using it</h4>
+          <p>Add your products or services, record a sale and your profit appears automatically. Most users are up and running within the first hour.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CORE TRACKER -->
+<section style="background:rgba(15,17,32,0.5)">
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag" style="justify-content:center">Why Core Tracker</div>
+      <h2 class="section-title">Why people choose Core Tracker</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(58,159,212,0.12)">
+          <svg width="18" height="18" fill="none" stroke="#3a9fd4" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:5px">Setup takes 5 minutes</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Open the link, add your first product or service, record a sale. Done.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(58,212,160,0.12)">
+          <svg width="18" height="18" fill="none" stroke="#3ad4a0" stroke-width="2" viewBox="0 0 24 24"><path d="M1 6l11 6 11-6"/><path d="M1 12l11 6 11-6"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:5px">Works without internet</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Bad network? Power cut? Core Tracker keeps working and syncs later.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(224,64,160,0.12)">
+          <svg width="18" height="18" fill="none" stroke="#e040a0" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:5px">Your data stays private</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Owner PIN protection. Your data is never shared or sold.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(251,191,36,0.12)">
+          <svg width="18" height="18" fill="none" stroke="#fbbf24" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:5px">No app store needed</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Works on any Android or iPhone. Install directly to home screen.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(58,212,160,0.12)">
+          <svg width="18" height="18" fill="none" stroke="#3ad4a0" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:5px">Support on WhatsApp</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Got a question? Just send a message. We reply fast.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(58,159,212,0.12)">
+          <svg width="18" height="18" fill="none" stroke="#3a9fd4" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:5px">You don't need to know accounting</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6">Just record what you sell or what service you did. The app figures out the rest.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="reveal">See it for yourself</h2>
+  <p class="reveal" style="font-size:17px;color:var(--text2);margin-bottom:36px;font-weight:300">Open any demo on your phone right now. No sign up, no payment needed.</p>
+  <div class="reveal" style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+    <a href="https://coredigitaltools-collab.github.io/coredigital-Demo/" target="_blank" class="btn-primary">Try Product Demo</a>
+    <a href="https://coredigitaltools-collab.github.io/service-Demo/" target="_blank" class="btn-secondary">Try Service Demo</a>
+    <a href="https://coredigitaltools-collab.github.io/Core-Wallet-Demo/" target="_blank" class="btn-ghost" style="border-color:rgba(58,212,160,0.4);color:var(--green)">Try Wallet Demo</a>
+    <a href="https://wa.me/256765665564" target="_blank" class="btn-ghost">Chat on WhatsApp</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="nav-logo">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIAAgADASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAIHAQYIBQQD/8QAUhAAAQMCBAIGAwoJCQcEAwAAAAECAwQFBgcRMRIhE0FRYXGBFCKRCDIzQmJylKGxshUWFyM3UlaS0UNTVGN1grPB0iQ2OERGc/AlVYTCk6Lh/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAIDBAEFBv/EADURAQACAQMCAwUHAwQDAAAAAAABAgMEETESIQVBcRMzUWGRFCIygaGx0cHh8AYjQvEVU2L/2gAMAwEAAhEDEQA/AOTAAXIAAAAAAAAAAAAAAAAAAAy3ckRbuSK7cpQAAi6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARduSIu3JU5clgAFiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLdyRFu5IrtylAACLoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABF25Ii7clTlyWAAWIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMt3JEW7kiu3KUAAIugAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEXbkiLtyVOXJYABYiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAy3ckRbuSK7cpQAAi6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARduSIu3JU5clgAFiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLdyRFu5IrtylAACLoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABF25Ii7clTlyWAAWIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMt3JEW7kiu3KUAAIugAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEXbkiLtyVOXJYABYiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAy3ckRbuSK7cpQAAi6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARduSIu3JU5clgAFiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLdyRFu5IrtylAACLoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABF25Ii7clTlyWAAWIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMt3JEW7kiu3KUAAIugAAAAAAAAAAAAAAAAAAHp2XD19vWq2m0Vta1OSuiiVWp/e2+s2zJnBUWKbvLWXJjnWuiVvSMRdOmkXmjNezTmvknWb5jTNW2YcqnWSwW2GsfS/m3rxdHTxKnxGo1Oemy6aJ4mzDpqzT2mW20frKu95idqxvKrfyd43/Zmu//AE/1Hm33DGILFDHNd7RVUcUjuFj5Gpwq7fTVFXmb47O++I1y/gO18kVffyfxNvzxmWoythqHNRrpZ6WRUTZFcir/AJl/2bT3x2tjtO9YZ5z5aXrW0RtLn0AHmNgAbRgjA17xWrpaNsdPRMdwvqptUZr1o1E5uXw261LMeK+W3TSN5V5c1MNZvknaGrguN+STUp9WYif0um7qP1Nf3tSvMZYQvOFalkdxiY+CRVSKpiVVjf3dqL3KaM/h+owV6r17Men8U0mpv0Y77z+cfu18AGN6ARduSIu3JU5clgAFiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLdyRFu5IrtylAACLoAAAAAAAAAAAPot1FV3GuhoaGnkqKmd6MiiYmrnKpd+HMoMP2i2JcMZ17ZZERFkYlR0NPF3K7krl80TsQsx4rZOF2LBfL+HhRAOhocGZSX9VorTPRek6aN9CuC9J5I5V4vYpV2ZWXtxwfMlSyR1bapHcMdSjdFYvU2ROpexdl8eRO+nvWvVzHyMmC1I35aUAChSv7Jpy0WTtdW0/qTI6sl4k/WazkvlohQCKrkRzlVVVNVVetS/sqP0IV3za77qlAs943wQ3av3eP0V05liT4N3zV+wv8Azm/RFR/Po/uFASfBu+av2F/5zfoio/n0f3Cei9zm9P5Z9V7zH6qCAB5zY+qz0T7ldqO3RLwvqp2QtXs4nImv1l7ZoX/8RcKUFpsDGU80qLDA7hReijYicTkTrcqqnNetVUo2wVyWy+0FyVFclLUxzKidaNcir9WpdWeFhqMQ4eoLzZ2LV+icUnDEnEskL0ReJqJvpoi6dir2HseH9UabLbH+Pt67PD8SittVhrl/B39N/LdT0eJ8Rx1fpbL9c0n1141qXL9Srp9RdmFK5mY2XVTS3WNi1OrqeZzW6IkiJqyRE6l5ovt6jn5jHvlSFjHOkVdEY1qq5V7NNy/ssbbJgrAFVcL0no8j3OrJo3bxtRqI1q/KXTbtciFng18l8totO9Np334Zv9Q0xUwVtSIjJvHTtyoGRjo5HRvTR7HK1yd6LopEnPK6aeSZyaOke56p2Kq6/wCZA8OX0kb7dwi7ckRduSpySwACxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlu5Ii3ckV25SgABF0AAAAAAAAPot1FV3GuhoaGnkqKmd6MiiYmrnKp+dLBNVVMVNTxPlmlejI2MTVXOVdERO/U6Kwbhqx5XYYmv9/njW4uj0nmROJWqu0MSdar1r19yIWY8fXPya9LpZzzM8VjmWMHYasWV2GZr9fp4n3FzNJpmpxcOu0MKdar1r19yIUxmFjG5Yxu61NWqxUkaqlLSI7VsTe1e1y9a+zkMwsZXLGN49Lq9YaWJVSlpUdq2Jq9a9rl618k5G2ZO5auvz4r7fYXNtLV1ggXktWqda9kf3tk5cy6ZnJMY8fC3Lk9tMYcMbVj/N5V1JbrrSUVNdpKGsgpZXf7PVLG5rHOTbhd2+BduVuYFJimhXCuK0ilrJY+iY+VE4Kxv6rv6z7d05njZ647oa2ldhCzNimgikYtVO1E4GuYvKOPTlyXdU5ctE6yn2uc1yOa5WuRdUVF0VF7UORf2F9qzvHmzWmMV9qzusLMfLK6WK7sWyUtVcbdVScMCRsV8kTl/k3afU7r6+Z6WF8lrxWIya/VsdtjXn0ESJLMvj8Vv1n3YSzpWjsK01/oqqur4W8MU0Tmp06dXSKuy9qoi69mpqGLczMU4gV8SVa22jd/y9Iqs1T5T/fO+pO4un7LH3+8/JVbbyW1dajCWA8C12H4rqzjWnnSOB8ySTySSNVNm7c1TfREOcGpo1E7E0M9ar1rzVe0FGoz+227bRCuK7IyfBu+av2F/wCc36IqP59H9woCT4N3zV+wv/Ob9EVH8+j+4adF7nN6fyy6r3mP1UEADzmwN9y8zKuGGadttrIFr7a1fzbEfwyQ/NVeSp3L5KhoQLcOfJgv1452lTqNPj1FOjJG8OoazEVso8IJi9aKRYHQMnRrY2JMqPVERNe3n2lIZg4/uWK9KRsSUVtY7iSna7idIqbK93Xp1InJO8sXEXq+58iR3JfwbTb/ADmFEKe14vq8sRXHE7RNYmXz3gehwTN8sxvatpiPlsAA8B9OEXbkiLtyVOXJYABYiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAy3ckRbuSK7cpQAAi6AAAAAAAAsL3PdDDWZkwSzIjvRKaWoYi/roiNRfLiVT6fdFXeqrMdranvclLb4GJHHry43tRznePNE8ENeyoxBDhnHVBcqp3DSO4oKl36sb00V3kui+RZef+CKm5K3F1nZ6Q6OBG1kUfNXRt97K3TdEReenVovaX1iZxTEPWxROTQWrj5id59P8/Zq2SWAIMT1D7zdtH2ylm6NKdF51EiIi6L2MTVNe3XTtPfzkzKbGyXC+F5mta1Oiq6uFdEaiclijVNuxXJ4J1qVRaMRXy00FVQ2y61VJTVafn44n6I/lpr3cuWqacjyzkZemnTX82T7RFMXRjjaZ5kABSyAAAAACMnwbvmr9h07ivDcmK8A0VpirGUjlZTS9I9ivT1WJy0RU7TmKT4N3zV+w6JzTuNfa8rKOqttZPRz60jekhfwu0VnNNT1PDprFMs3jeNv5YdZFptSK87tVXI+tT/qSl+iO/wBRj8iFb+0dL9Fd/qNC/HTF37S3X6Spj8dMXftLdfpDjkZtD/65+v8AdC2HWzxkj6f2b7+RGs/aOl+iu/1H12jJWKOtZJdL16TTtXV0MECsV/crlVdE8E1K3/HPF37S3X6Qp+FbijElbAsFXf7nNE73zHVLtF8eZKNRoK9/ZT9f7qL6bxG3b20R+X9ljZ44roH0EeE7RJG9sb2rVLEurI0Z72JFTr10VezREKiAMeq1NtTknJb/AKbdFo6aTFGOn1+MgAMzWEXbkiLtyVOXJYABYiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAy3ckRbuSK7cpQAAi6AAAAAAAAFr5NZmOsrosP4gnV1rVeGmqHLqtKq/FX+r+74bVQNua8kJUvNJ3hdgz3wX66SuTOfLRIEmxPhqBHUzk6SrpIk1RmvNZY0T4vWqJtunLamzpfBVRPgnJyG5X2eWZ0NOtQyGRebEf8ABQp7U5dXEvUhzXM9ZZnyua1qvcrlRqaIiquuidxdnrEbTHm067HSs1tWNpmN9vggADOwABs+X+C7pjC4LFSfmKOJU9Iq3t1bH3InxnL1J5roSpS156ax3Gu0tPPVVDKalglnmkXRkcbFc5y9yJzUsLDuT2Jri1stykp7RE7nwyr0kv7jdvNSx5ZsEZU2tsbG8VdKzXRuj6qo71X4rfYniVlijNrFF1kfHb5GWelXkjafnKqd8i8/YiG/2GDB76d5+EKrTefwt2p8lcOU0WtyvFwl1TmqLHC360X7TbMXYco8V4RWx0tybFHE6NWTRq2bhWNNER2i9ngcxVlXV1sqy1lVPUvXd00jnr9ak7XcK611KVNtrJ6OZNnwSKxfPTfzJ012GkTWMfaee7Nk0uS+09feOG24kyvxZZ0fJHSNuVO3n0lGvEunexfWTyRTSntcx7o3tc17V0c1yaKninUWZhzOS/UXDFeaWC6RJvI381N7U9VfNENzZiLLXHTWw3SOmiq3ckbWs6GVF+TKi6L+95CNLps/ub7T8J/n/tXbVajB72m8fGP8/hz+C5sRZLwvRZ8O3VWcXNsNX6zV8JG8/ailb4iwfiSwauuVqnZCn8vGnSRfvN289DNn0OfD3tXt8fJdg1+nz9q27/DiXggnBFJUTMhgjfLJI5GsYxOJXKuyIibqbxRZUYwqaZJn09HSqqapHPUIj/NERdPaVYdPlze7rM+izPq8Gn29reK7/GWiA9bEmHL1h2pbBd6F9Px/BvRUdHJ81ycl8NzySu9LUt02jaVuPJTLWL0neJ84CLtyRF24pylLAALEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGW7kiLdyRXblKAAEXQAAAAAPstlqulzVUtttrK1W7+jwOk08dEN9yRwBFiuulul2Y51ppHozo0VU9Il34Nf1UTRV031RO0sLFebeHcK1DrJYrZ6ctKvRvbTubDTxqnJWoqIvEqdeiad5ZWkbb2nZ6un8NrOGM+ov0VnjzmVIfifiz9mbx9Df/A9nA+Ar9cMW22luljuNLQrOjqmSancxqRt9ZUVVTTnpp5m7fl8l/ZZn05f9AXPuVf8ApZn05f8AQTrXFE95d9joK2iYyTP5T/DHumb8qy27DUDkRrU9LqWp282xt8vWX2FKnrYvvtViXEdXeqtjI5KhyaRsVVbG1ERGtTXsRDySGW/XaZYdVm9tlm/kAArZ3t4Iw3WYqxDBaaReBHevPNpqkUae+cv2InWqoXhjjElqy0wvTWSx08fpr41Smhdz4E65pO1VX2r3IfhlHbKPB2XE+Jbm3glqoVq5nL75IUT82xO9d/FyFGYlvNZiC+VV3r3az1D+Lh6mN+KxO5E0Q9CJ+zYt4/Fb9ISmNofNca2ruNdNXV1RJU1MzuKSWRdXOX/zqPfwdgXEWKdJbfSJFR66LV1C8EXl1uXwRTZ8msvGYgcl8vUTltcb+GCFeXpL0Xnr8hF5d68tkU2HMPNaG1vdZcJR073wJ0b6vgRYotOXDG3ZdO3bsRSOLT1ivtc87RP1lRe9vw15ZtmSFuZEjrpfauV3WlPE2NiebtVPplyWw1MxUpbtc2v7eOOT6uFCl7xfb1eJllul1rKtyr/KSqrU8G7J5IfFBPNBIkkE0sT0XVHRvVqp5oT+06aO0Yu3qpthzT369vyWNibJ6/W6N89pqIrtE3msbW9HN5NVdHeS+RXE0UkMr4Z43xyMXhex7VRWr2Ki7G9YQzTxFZpmRXGZ93oddHRzu/OtT5L9/JdU8CxcU4esOZeHG3uySRtuKN0inVOFVcm8Uyf59W/NCf2XDqazOn7Wj/jP9GedVl01ojP3rPnH9VL4fxXiGwKiWq61EMafyLnccS/3Hap7CxsPZ0Lo2HEFp1RU0dPRrv4sd/kpUdVTz0tVLS1MTop4XqySNyaK1yLoqKfmZsGt1Gn7Ut+S7UaDTamN71/PzdN4TjwdeZ/xmsNFSdOiuidUNgWN7FVE4kVvJNdFTnp17lVYizYxHNeJltEsFHQxyK2Jiwte57UXTVyr276Jpoep7n3ENLTSVeHauRsb6mRJ6XiXRHu00czxVERU7dFPwxDk/d/wtK+y1VE+ikermJPIrHxIq68K8l107UPby5dRqNLS+m7Tv97p7d3zeLDpNLrMlNZ3jaOnq7xt+3+S3HD9fT5k5e1UNwpo46jV0MiNTkyVE1ZI3Xmm6fWhz45Fa5Wu98i6L4nQNFT0OWGX061FUyeqernoqer006po1rUXnomieSKqlfZe5Q4zxrTpcYKaK3WpyK9bhXuWONybq5ie+eneiad5l8Y36cUZPebd/wCjb/prHOTLn+zxPspt93+u3y4V8RduXA/BWTNnqvQ75mlW11S3lItqt/FCxezj0fr5KaNmZbcIWu/ww4Kvs96tj6Vkjp5m8L2yq5yOYqcLdkRq7dZ41Y7vqMmG1K7zMfWGrgAmoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZbuSIt3JFduUoAARdAAAACAdGYHlfaPc6yV9EvR1CUFVOj03R6uenF4py9hQFgpI66+2+hmVyRVFVFC9Wrz4XPRF89FL8sX/DJL/ZNR/iPKLwf/AL3Wb+0IP8RpZbye/wCKx201fLphv+f+ELBhh1nlsdEtGlR0scrEkc5HcHDo71lXnzXXtKrLy91P8DYP+7UfYwo0ZYiLzsw+K0rj1dq1jaO37QAArecH3Yft7rtfqC1t3q6mOHyc5EX6tT4Tb8mYmy5nWRHJqjZXvTxbG5UJ469V4h2sbzELN90bc20GFbfY6XRjaubVWp/NRImieGqt9hSeGrVNfMQUNogVUfVzti4v1UX3zvJNV8ixvdLzOdiq1QL72OgVyeLpHa/dQ8v3PlOyfMVkj0RVp6OaRvjojf8A7Ka80e11PTPHaEsn4pb7nTfo8KYQo8NWVfRpKqLoWcC6LFTtTRdO922vzigDf8/aqSozHqIXKvBTU0MTE7NW8S/W41PD2H7ziCeWGzW6asfCzjkRmicKdXNVRNV6k6yOrtbLmmseXaFVdojeXmAlNHJDK+KWN0cjHK17HJo5qpuip1KbfllgerxdcVkk44LVA7/aJ0Tm5f5tnyl7epPIz48VslopWO7l71pXqtw12ms12qrXPdKe21UtDTrpLUMjVWM7dV7uvsNjyjxRJhzFMMcsqpb657Yalqryaqro1/iir7FUsXNDF9rwpYnYRsMMKVLoFgdGxNWUsbk0XXteqKvJe3Ve+h15N0Tly5GrLWNHlr7O28xz6/BmpM6vFaL12ieP5Wv7oawNpbrSYggjRrazWGp0/nWp6rvNvL+6VSX3me78K5LU9xk5yJHSVOvyl0RfvKUIT8Ux1rn6q8WiJU+FZLX0/TbmszH0ZaqtcjmqqKi6oqLoqKbZQZkYzoqZKdl4dKxqaNWeJkjkT5ypr7dTUjDl4Wq7sTUx482TFO9LTHo2ZtPhzxtlrFvWN3QPuecD1WYl3lxrjaWW5W6hl6Gkp5+bJ5k0VfV26NuqeqnJXLz2U8r3TGZ9Xfr/AFOD7LUuhsNvf0E6RLolXK3k7XT+Tavqo3ZVRV7NL/wdTMwXkTRrTtRr7fYnVbu+VYllcv7ynCqvfIvSSOVz3es5V3VV5qvtI3tM95neZevmx10mnphxxtvzt+wRduSIu3OU5ebPDAALEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGW7kiLdyRXblKAAEXQAAAgAHRNi/wCGSX+yaj/EeUXg/wD3us39oQf4jS98s40xHkJLZqR7fSfR6miVNdpNXObr48Tfac8ItTR1iL+cp6mnk8HRvav1Kip9RZfyl7/is7U02Ty6Y/Rdvup/gbB/3aj7GFGnuYtxbfsVy08l8rUqFpmq2JGxtY1Nd10TdV0TVTwzmS0WtvDzNfqK6jUWyV4n+AAEGMNrygqG02Zdie5dEdU9H+8xzU+tTVD6LbVyW+401fD8JTTMmb4tci/5EqW6bRLsTtO60vdM0zm4hs9Xp6stG+PXva/X/wCx4OQtYykzIpI3qiJVQTQJ85W8SfdLHz4oY7/l7SX+hTpG0rmVTVTn+ZkREd7NWr5KULaq6otlzpbjSu4Z6WVssa/Kauv/APDZnn2Woi/pKWSPvN890JQPpsf+lq1ejraSN7V7Vbqx32J7TyMr8Zy4PvL5JIlnt9Vwsqo2p6yImuj296ary60UtvH9pp8x8v6S8WVEfWRtWopW681VU0khXv1TTxanac7va5j3Me1zXNVUc1yaKipuip1KNTFsOb2lPPvCiIi1emXRt6wbg3Hs0GIIKty8aIsstFI1OmROp6KmqOTbXkp5GYOObXg+0Mw3hJKdKtjOBFh0dHSJ2qvxpF8+1ewolr3M14HObxb6Kqa+JhOW3Ist4h2nor02nmVH2SJmOqd4jySmkkmlfNNI6SR7lc97l1c5V3VV61MI1z1RjEVz3Lo1E61XZDBYuSOEZbzfY73Vwr+DaCTiark5TTJ71qdqNXmvkhjwYbZ8kUr5rc+auDHN7eTds2+GzZQ01pcqJI5KWlRO1WIjnfdUoQsjPrEbLriKK0UsiPp7bxJI5F1R0zvffuoiJ46lbmrxPLW+eYrxXt9GTwvFbHp4m3Np3+oYkRVjcibq1U+o+igo6q4VkVHRU8lRUTO4Y4401c5SxKHJvEEtMklVcrdSSqmvRLxSKniqJp7NTPg0mbUb+zruu1Ou0+l29teI3dVq1MQ5Lqyk9f8ACGHOGLTrV1Noie3kcEN14G6pouiHZvuerjcbLY4cDYj6NtVRud+C6hj+KOqh1V3Roq80ezn6q81btropQHuhMu6vBOMKispqdy2G5TOlo5mp6sbnLq6Fy9Soqrp2t002UjmxXxz03jaXt582PW6emowz1V+SsiLtyRF25XTl50sAAsRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZbuSIt3JFduUoAARdAAAAAG6ZUY7nwXd5FljfUWur0SqhavrIqbSN1+Mmq8utOXYXDcLFllmK/wDCsNZAtW9EWSWmqUgmX/uMduveqa95zUYVEVdVRF8iyt9o2mN3p6bxO2LF7HJWL0+E+Xo6J/Ixgf8A9zuP02P/AEhuS2Cnu4WXC5vXsbVxqv1NOd9E7D2cEXp2HcWW28t14KaZFlRPjRryen7qqTrkpv3qnGt01rRE4YiPX+z6syMNfini6qs7JZJoGtbLTyPREc6Nyaprpy1RdU8jXC+PdI2NtbZLfiejRJEplSGZ7efFDJzY7wR33ihyGanReYYtZh9jmmsceQACtmXzkNf6a94WqcI3LhlfSxuayN38rTP5Kn91VVPBUKkx5hqpwriSotU6OdEi8dNKqcpYl967x6l70U+DD92rrFeaa7W6Xo6mnfxNVdnJsrVTrRU5Kh0BVQ4fzbwW2WJ6U9ZD71d5KOZU5tcnWxfrTmnNDfSI1OPo/wCUcfOHZneFTZWY8qMIVzqepa+otNQ5FmibzdG7bpGd/anWnehZ2K8DYbzApEv9hr4YKuVNVqYk4o5V7JG7o7v5L2opR+J7BdMOXR9uu1MsMyc2OTmyRv6zHdaf+LofnYr3drFV+lWi4T0cq++WN3J3c5F5OTxQji1HRHss1d4/WFN6TPes7S2G8ZZY0t0rm/gd9bGm0lI9JEXy5OTzQ+GlwJjGpkRkeGrki9skXAiebtENstmdWIYGIyvt1urlRPfojonL7NU+o+qozvubo1SDD9Cx/U59Q9yJ5aIWRj0U9+uY/wA9FNr6mO0ViX6YQyaqnysqcT1TIok5rSUz+J7u5z9mp4ar3oenmHmDbMPWz8XMIrAlRGzolkg06Kkb1o1dnP8As3XVSucTZg4pxBG6CruKwUzvfQUreiYqdi6c3eamsQxSTSthhjfJI7k1jGq5y+CJzJW1mPFWaaau2/nPKn7HfLaL6id9vLyRVVVVVVVVVdVVV1VTBvOHcrcVXbhkqKZlrp158dWujtO5iet7dDfrfllg3DtMlbiKuSr4eauq5Uhh8mouq+aqV4fDdRl77bR8Z7OajxXTYO2/VPwju873O9qpW2+5X6RrXT9L6Mx2mqsYjUc7Tx1T2Gn4izMxRX3aWeguU1vpGvXoIIURERuvLiVU9Ze3UtexY7wT+FILBaJo4GO1SJ7KfoqdXdTUVdOa9umi9pq+JsnnVV5lqrRc6ekpZnq9YJonKsSrzVGqm6diLpoevlwZZ0tMektvtztPm8DFqsEazJl11OnqiOnqjft9GxYDu8+OMCTenr0dayR0DpofUVJGojo5W6e9ciqi8tlQ8jDGf9f+CX4fzCsNNim3ub0Usi8LJnonL12qnA9e/wBVe/U9KrktWWGAnUkdR0tY9HrEjtEfUTOTTi06mpy8ETTdTn3mvNV1XrXtMvi9piuKl53vEd/6PQ/0zlvjyajJg7YrW+7Hl579vp+y3LjF7ny7PWopa3GGHXO5rTtpknjb3JrxL9ZXuN6bC1LeGRYRulxuVv6FqvmrqZIX9JquqI1OrTh596nikXbnjVnu+lyZeuPwxHowACagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlu5Ii3ckV25SgABF0AAAAAAAAAL1ygy3gtFMzFeK2RxzMZ01PTz6I2maia9LJry4tOaIvvd157Tx0m87Q0abTX1F+mv5z8G1YCt1ZNlNFa8ZRNp4lpXxP6V2jmU2nqK/X3rmp7NE6zmOdrGTyMik6WNr1Rj9NONEXkunenMsXN/MibE877TaHvissbvWds6rcnxndjOxvXuvYlblme8W2iPJdrctLzFKd+ntv8QAFDCHqYXv90w3dWXK01CwzN5PavNkjf1XJ1p/4h5YOxM1neB0NY8Y4NzDtrbRf6anp6t3/LVLtEV360UnLn7F8TWcUZJ1Ucj5sOXFkrN0pqxeF6dyPRNF80Qp82jDmYGLLDG2Gju0ktO3aCpTpWInYmvNPJUN8arHljbPX845VWpaO9JQuOAsZUDlSfDtc5E+NCxJWr5tVSVjwBi67zKynstRAxF0dLVJ0LG+bua+SKbpRZ43GNmtdYKOZUTm6Gd0evkqKb/mPieusWBWXy3Rw+kTOha1JkV6MSRNV5ctVQux6XS3ibxado5ZcmfPSYr0xvLUsP5M26lj9JxJdXVHCmr4qdeiib4vXmv1Hoz4yy6wXE6mskEE86clbb40cqr8qVf4qUxiHEt+xBJxXe6VFU3XVI1dwxt8GJon1HkEft+PD209Ij5z3lCdDfN7+8z8o7QsbEeb2Iq9XR2uKC0wrs5n5yX95U0TyQ0G4VtZcKhamvq56uZd5JpFe72qfODDm1OXNO97bteHTYcHu6xAe7Q4yxVRUyU1LiC4RwomjW9LxcKd2uqoeECFMl8c70mY9E8mLHlja9Yn1jd+9dV1VdUuqa2pmqZ3e+klernL5qfgDccNZbYmxBh6K/UTrRBQTTPgjkrbnFTq57PfIiPVNdNSMzMzutpjmfu0hpxF25teLMv8V4Yt8dyuluY+3SO4G1tJUR1NPxfqq+NVRF7l0NUdudryXrNe0wwACxWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAy3ckRbuSK7cpQAAi6AAAAAAAA3fJCywXvMSijqmJJBSMfVvYqao5WacKL3cStXyNp90biusmvSYUppnR0cEbJatGrp00jvWRF7kTRdO1e5DW8hrrDa8x6NKh6MjrYn0nEq8kc7RW+1zUTzPd90bhqrpsSNxNFE59FWRsjmeicopWpwoi9iORE070VC+u/sp2etj3jw+3Rzv39H40WUjrpl7R36zXRau5zwpOtNo1I3J1xtduj0258lXlyKvmjkhlfDNG+ORjla9j00c1U5Kiouym55WY+rMH3DoZukqLPO/Wop05qxf5xnyu1Ovx0Us7M3Atvxva2YowvJDJcJI0ejo10ZWs7F7HptqvgvdKMdcld6cx5M84cebH1Yu0xzH9XPYJzRSQTPhmjfHLG5WvY9ujmuTdFTqUgZmEAAAAARk+Dd81fsOk8f2G44jy3o7bamRPqVSlk0kkRicLWc+a+JzZJ8G75q/YdKY+v1xw3lvR3O1uibUIlLHrJGj04XM58vI9Tw7p6MvXxt3/Vh1nV1U6ed1Vfkjxr/RaH6Y0x+STGv9FofpjSX5Xsaf0i3/Q2/wAR+V3Gn8/b/obf4nI/8f8A/X6IW+3eXT+qP5Jcaf0Wh+mNPwq8rca08LpUtsM/CmvDDUsc5fBOWp9H5XMaf0i3/Q2/xPrtOcWI4a1jrnBRVlLr+cZHD0b9OtWqi7+JKI8OntM2j6KLW8UrG8RWfqruohmpp3wVEUkM0buF8cjVa5q9ioux+Zdud9noLthWmxdQo1ZY0jV0iJossD9OHXvRVT2qhSRk1mlnTZejfeOYn5Neg1kazD7SI2niY+EhY2IkR3udcIorUX/1+47pr8VpXJvGH8wo7dg6kwvccH2G+0dJUy1MLq9ZuJr5NOL3jkTq0M0PSxTEbxM8w9f3Pj5pa/E9pqVVcPz4frJLpG74JvAzWORU2RyP00Xfcq1NVa1Xb8Ka+Ju2IsxLlcbBLh61WizYbs87kdU0tqp1Z6SqbdK9yq56J2a6GlO3JV5cy2jpisTvswACagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlu5Ii3ckV25SgABF0AAAAAAABlqq1yOaqoqLqiouiop0BlVj+jxdblwpipsMtdJGsTXSp6lazTZf6z7d05nPxKN743tkjc5j2qjmuauioqbKi9SlmPJNJ3adNqrae28cTzHxb3mxl7U4RrFraJJKiyzP0ilXm6By7Rv/yd1+J+OVePqvB9f6PUcdRZ536zwJzWNf5xnf2p1+Oilk5V5gUeLaBcLYqbDLXSRrG10qJwVrNNl/rPt3TmaDmhlpcMNVslbaYKitsz14mva1Xvp/kv056djuvr0Uums1/3MTRlxxX/AH9Px+yOd97wvfr9SV2HXJLKsKpWTtjcxJF1Tg1RURVcia6r4J1GjW+jqrhWw0VFBJUVM70ZFExNXOcvUh+1ptVzu1ayjtlBU1dQ9dEZFGq+1dkTvUvzBmGbLllhua/3+eJbg6PSaZPW4NdoYk61XrXr7kQ5THbPebT2jzZNrZbTaez8ML5R4corC2HEjG1dyqeTpGzqxInKnJkWipqqdvPXs0NSxbkvd6J75sPVLLlAnNIJVSOdvd+q76vA1HMLGdyxfeEqqhXQUkLl9Epmu5RJ2qvW9etfJOR6OFs0cV2NrIJKptzpW8kirNXKidiP98nnqXTk01vuTXaPirtMeTUrpbLjaqhae50NTRyounBPGrFXw138j5Dpu33qlxxlnXXGptrYonwVDHQSOSRGuY1eaLonXoqdaHMbF1Y1V60Qp1OCMXTNZ3iVdbbsSfBu+av2F/5zfoio/n0f3CgJPg3fNX7C/wDOb9EVH8+j+4aNF7nN6fyy6r3mP1UEADzmwALWy5ywp6y2R3zFEj4qZ7Okipkf0erN+OR3xUVOeiacuaqaNNpsmpv00hm1Wrx6WnXkn+7YcQf8PcX9m0332FEKdHy37LustiYYfd7Y+i4GwNg6VyM4WqmiI/bkqJz1K6zOy2SxUb71Y5JJ7e3RZoXrxPhRdnI74zfrTvQ9jxPS2y1rkxzForERO0/B4HhGtpgvbDmiaze0zG8bb77dvVWoAPn31ARduSIu3JU5clgAFiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLdyRFu5IrtylAACLoAAAAAAAAAAMse6N7Xsc5j2qjmuauioqbKi9Slu4QzsrqKmjpcRUD7hwJwpVQPRkqp8pF5OXvTTUqEE6ZLY53rKzHmvjnesr7rs8bFFAv4PslwmlVPeyKyJuveqKqr7Cpcb4wvOLrg2pucrWxRa9BTRapHEi76J1qvWq8zXgTyajJkjaZ7O5M18n4pAAUqnQOUH6F6v8A+b91Tn1nwbfmp9h0BkS9lxyxrbXG9ElbPUQu16ukYitX6/qKEqaaejqZKOpjdHPA9Y5GOTRWuauiob9V3xYp+Sun4pfjJ8G75q/YX/nN+iKj+fR/cKAk+Dd81fsL/wA5v0RUfz6P7hLRe5zen8s+q95j9VBAA85selhWjiuGJ7XQz/BVFZFG/vark1T2Fue6KuVRTWi22qByx09XI98yN5I5GcPCzw1drp3IUvRVMtHWwVkC8M0EjZY1+U1UVPsOgMRW635oYIpqy3VLIaljukic7mkUumj4n6c0T+CLzPY8Picmny4qfinb84/z93ieJWjFqcObJ+CN/wAp/wA/Zzz1aF8ZG1kl5wPVWuv1mhp5nUreLnrE9mvD4JqpXzMqsaOq0gWgp2M10WZapnAidvLn9RZipb8r8vHxrUNmrH8SsXZZ6hyack/Vby8ETtUu8K0+XBlnLlia1iJ33YvHdTh1OGuDDMWvMxtt32+fyUBVRJBUzQIuqRyOYi9uiqn+R+ZlVVVVzl1VV1Ve1TB4Uvp4327hF25Ii7c7TklgAFiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLdyRFu5IrtylAACLoAAAAAAAAAAAAAAAAAANryyxjPg++LULG6egqERlXC1eaoi8nN+UnPxRVQuC64YwNmQiXehrdKpyIj5qR6NkXsSSNybp3oi96nOhljnMfxsc5jk+M1dF9qGvDquivReOqqu+Pq7xO0rzdkZaVRU/Dtz5pp8BGfdnyyOjy0go1k5tqaeOPi5OfwIqKungmpQnplZ/TKn/APM7+J+cs002nSzSSabcb1dp7S6dZijHamPHtv8ANROnva9bWtvsgADzmsPTw9f7xh+rWqtFdLSvdyeic2PTsc1eSnmAlW1qTvWdpRvSt46bRvCwn5v4tWDo0ZbGv006RKZdfZxafUaXe7vc73WrW3Wtlq51TRHPXk1OxETkidyHwguy6rNmja9pmGfDotPgnqx0iJ9AAGdqCLtyRF25KnLksAAsRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZbuSIt3JFduUoAARdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIu3JEXbkqcuSwACxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlu5Ii3ckV25SgABF0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi7ckRduSpy5LAALEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGW7kiLdyRXblKAAEXQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLtyRF25KnLksAAsRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZbuSIt3JFduUoAARdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIu3JEXbkqcuSwACxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlu5Ii3ckV25SgABF0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi7ckRduSpy5LAALEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGW7kiLdyRXblKAAEXQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLtyRF25KnLksAAsRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZbuSIt3JFduUoAARdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIu3JEXbkqcuSwACxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlu5Ii3ckV25SgABF0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAi7ckRduSpy5LAALEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGW7kiLdyRXblKAAEXQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLtyRF25KnLksAAsRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZbuSIt3JFduUoAARdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIu3JEXbkqcuSwACxEAAAAAAAAAAAAAAAAAAH/2Q==" alt="CDT" style="width:32px;height:32px;border-radius:9px">
+    <span class="brand" style="font-size:15px;font-weight:800">Core Digital Tools</span>
+  </div>
+  <div class="footer-links">
+    <a href="#systems">Products</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://coredigitaltools-collab.github.io/coredigital-Demo/" target="_blank">Product Demo</a>
+    <a href="https://coredigitaltools-collab.github.io/service-Demo/" target="_blank">Service Demo</a>
+    <a href="https://coredigitaltools-collab.github.io/Core-Wallet-Demo/" target="_blank">Wallet Demo</a>
+    <a href="https://wa.me/256765665564" target="_blank">WhatsApp</a>
+    <a href="mailto:coredigitaltools@gmail.com">Email</a>
+  </div>
+  <div class="footer-copy">
+    Track. Manage. Grow. &nbsp;|&nbsp; MTN: 0765 665 564 &nbsp;|&nbsp; coredigitaltools@gmail.com<br><br>
+    © 2026 Core Digital Tools. All rights reserved.
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
